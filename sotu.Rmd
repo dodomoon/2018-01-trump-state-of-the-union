@@ -1,0 +1,22 @@
+---
+title: "SOTU"
+author: "Junho Moon"
+date: "10/29/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidytext)
+
+# load data
+sou <- read_csv("data/sou.csv")
+presidents <- read_csv("data/presidents.csv")
+```
+
+```{r}
+sou <- sou %>%
+  left_join(presidents)
+```
+
