@@ -16,7 +16,17 @@ presidents <- read_csv("data/presidents.csv")
 ```
 
 ```{r}
-sou <- sou %>%
-  left_join(presidents)
+tidy_sou <- sou %>%
+  left_join(presidents) %>%
+  unnest_tokens(word, text)
 ```
+
+```{r}
+tidy_sou %>%
+  inner_join(get_sentiments("afinn"), by = "word") %>%
+  group_by(party, date) %>%
+  summarize(rating = mean(score)) %>%
+  ggplot(aes(x = date, y = rating, color = party)) + geom_point() + geom_smooth()
+```
+
 
